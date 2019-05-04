@@ -27,7 +27,7 @@ namespace SportsStore
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                         Configuration["Data:SportStoreProducts:ConnectionString"]));
-            
+
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc();
         }
@@ -41,10 +41,15 @@ namespace SportsStore
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "pagination",
+                    template: "Products/Page/{page}/",
+                    defaults: new { Controller = "Product", action = "List" });
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Product}/{action=List}/{id?}");
             });
-             SeedData.EnsurePopulated(serviceProvider);
+            SeedData.EnsurePopulated(serviceProvider);
 
         }
     }
