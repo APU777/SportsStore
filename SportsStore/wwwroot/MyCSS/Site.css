@@ -1,0 +1,13 @@
+﻿.block-left {
+    width: 20%;
+    height: 100%;
+    overflow: auto;
+    float: left;
+}
+
+.block-right {
+    width: 80%;
+    height: 100%;
+    overflow: auto;
+    float: right;
+}

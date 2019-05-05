@@ -41,13 +41,37 @@ namespace SportsStore
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "pagination",
-                    template: "Products/Page/{page}/",
-                    defaults: new { Controller = "Product", action = "List" });
-
+                        name: null,
+                        template: "{category}/Page{page:int}",
+                        defaults: new { Controller = "Product", Action = "List" }
+                    );
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Product}/{action=List}/{id?}");
+                        name: null,
+                        template: "Page{page:int}",
+                        defaults: new { Controller = "Product", Action = "List", page = 1 }
+                    );
+                routes.MapRoute(
+                        name: null,
+                        template: "{category}",
+                        defaults: new { Controller = "Product", Action = "List", page = 1 }
+                    );
+                routes.MapRoute(
+                        name: null,
+                        template: "",
+                        defaults: new { Controller = "Product", Action = "List", page = 1 }
+                    );
+                routes.MapRoute(
+                    name: null,
+                    template: "{controller}/{action}/{id?}");
+
+                //routes.MapRoute(
+                //    name: "pagination",
+                //    template: "Products/Page/{page}/",
+                //    defaults: new { Controller = "Product", action = "List" });
+
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Product}/{action=List}/{id?}");
             });
             SeedData.EnsurePopulated(serviceProvider);
 

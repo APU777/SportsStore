@@ -4,18 +4,20 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link  rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css"/>
+    <link rel="stylesheet" asp-href-include="MyCSS/Site.css"/>
     <title>SportsStore</title>
 </head>
 <body>
     <div class="navbar bg-dark" role="navigation">
         <a class="navbar-brand" href="#">SPORTS STORE</a>
     </div>
-    <div class="container">
-        <div class="row card">
-            <div id="categories" class="col-3">
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div id="categories" class="block-left">
                 Put something useful here later
             </div>
-            <div class="">
+            <div class="block-right">
                 @RenderBody()
             </div>
         </div>
