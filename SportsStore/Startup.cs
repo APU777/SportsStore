@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +27,8 @@ namespace SportsStore
 
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,21 +37,22 @@ namespace SportsStore
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                         name: null,
-                        template: "{category}/Page{page:int}",
+                        template: "{category}/Page/{page:int}/",
                         defaults: new { Controller = "Product", Action = "List" }
                     );
                 routes.MapRoute(
                         name: null,
-                        template: "Page{page:int}",
+                        template: "Page/{page:int}/",
                         defaults: new { Controller = "Product", Action = "List", page = 1 }
                     );
                 routes.MapRoute(
                         name: null,
-                        template: "{category}",
+                        template: "{category}/",
                         defaults: new { Controller = "Product", Action = "List", page = 1 }
                     );
                 routes.MapRoute(
@@ -62,7 +62,7 @@ namespace SportsStore
                     );
                 routes.MapRoute(
                     name: null,
-                    template: "{controller}/{action}/{id?}");
+                    template: "{controller}/{action}/{id?}/");
 
                 //routes.MapRoute(
                 //    name: "pagination",
