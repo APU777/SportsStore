@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="row">
             <div id="categories" class="block-left">
-                Put something useful here later
+                @await Component.InvokeAsync("NavigationMenu")
             </div>
             <div class="block-right">
                 @RenderBody()
