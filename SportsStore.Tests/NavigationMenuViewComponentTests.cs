@@ -30,3 +30,4 @@ namespace SportsStore.Tests
             Assert.True(Enumerable.SequenceEqual(new string[] { "Apples", "Oranges", "Plums" }, results));
         }
     }
+}
