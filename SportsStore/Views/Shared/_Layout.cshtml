@@ -3,13 +3,20 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link  rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css"/>
-    <link rel="stylesheet" asp-href-include="MyCSS/Site.css"/>
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <link rel="stylesheet" asp-href-include="lib/fontawesome/css/*.css"/>
+    <link rel="stylesheet" asp-href-include="MyCSS/Site.css" />
     <title>SportsStore</title>
 </head>
 <body>
     <div class="navbar bg-dark" role="navigation">
-        <a class="navbar-brand" href="#">SPORTS STORE</a>
+        <a class="navbar-brand mb-0 h1" href="#">
+            <img src="~/Pictures/U8tHnZDiVUM.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+            SPORTS STORE
+        </a>
+        <div class="float-right">
+            @await  Component.InvokeAsync("CartSummary")
+        </div>
     </div>
     <br />
     <div class="container-fluid">
