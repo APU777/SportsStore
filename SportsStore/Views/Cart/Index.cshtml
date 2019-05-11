@@ -22,8 +22,8 @@
                 </td>
                 <td>
                     <form asp-action="RemoveFromCart" method="post">
-                        <input type="hidden" name="ProductID" value="@line.Product.ProductID"/>
-                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl"/>
+                        <input type="hidden" name="ProductID" value="@line.Product.ProductID" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
                         <button type="submit" class="btn btn-sm btn-danger">
                             Remove
                         </button>
@@ -45,4 +45,7 @@
 </table>
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
+    <a class="btn btn-outline-success" asp-action="Checkout" asp-controller="Order">
+        <i class="fa fa-shipping-fast"></i>
+    </a>
 </div>
