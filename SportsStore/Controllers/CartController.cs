@@ -15,6 +15,7 @@ namespace SportsStore.Controllers
         {
             repository = repo;
             cart = cartService;
+            ViewBag.CheckCart = false;
         }
 
         public ViewResult Index(string returnUrl)
@@ -31,7 +32,6 @@ namespace SportsStore.Controllers
         public RedirectToActionResult AddToCart(int productId, string returnUrl)
         {
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
-
             if (product != null)
             {
                 cart.AddItem(product, 1);

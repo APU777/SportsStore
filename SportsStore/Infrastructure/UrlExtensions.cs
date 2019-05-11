@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Diagnostics;
+using System.Web;
 
 namespace SportsStore.Infrastructure
 {
@@ -6,7 +9,20 @@ namespace SportsStore.Infrastructure
     {
         public static string PathAndQuery(this HttpRequest request)
         {
-            return request.QueryString.HasValue ? $"{request.Path} {request.QueryString}" : request.Path.ToString();
+            return request.QueryString.HasValue ? $"{HttpUtility.UrlDecode(UrlFix(request.QueryString.ToString()))}" : request.Path.ToString();
+        }
+        static string UrlFix(string _str)
+        {
+            string Buffer = string.Empty;
+            for (int i = _str.Length - 1; i >= 0; --i)
+            {
+                if (_str[i] == '=')
+                    break;
+                Buffer += _str[i];
+            }
+            char[] charArray = Buffer.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
     }
 }

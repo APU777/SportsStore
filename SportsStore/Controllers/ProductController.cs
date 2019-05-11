@@ -12,6 +12,7 @@ namespace SportsStore.Controllers
         public ProductController(IProductRepository repo)
         {
             repository = repo;
+            ViewBag.CheckCart = true;
         }
         public ViewResult List(string category, int page = 1)
         {
