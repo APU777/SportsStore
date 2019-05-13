@@ -4,13 +4,23 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css"/>
+    <script asp-src-include="lib/jQuery/**/jquery.min.js"></script>
+    <script asp-src-include="lib/jquery-validation/**/jquery.validate.min.js"></script>
+    <script asp-src-include="lib/jquery-validation-unobtrusive/**/*.min.js"></script>
     <title>@ViewBag.Title</title>
+    <style>
+        .input-validation-error {border-color: red; background-color: #fee;}
+    </style>
 </head>
 <body class="card">
     <div class="card-header">
         <h4>@ViewBag.Title</h4>
     </div>
     <div class="card-body">
+        @if(TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
         @RenderBody()
     </div>
 </body>

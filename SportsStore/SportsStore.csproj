@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
     <PackageReference Include="FontAwesome" Version="4.7.0" />
+    <PackageReference Include="jQuery-Validation-Unobtrusive.NuGet" Version="5.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
