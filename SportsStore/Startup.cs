@@ -7,8 +7,8 @@ using Microsoft.Extensions.Logging;
 using SportsStore.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+
 
 namespace SportsStore
 {
@@ -19,8 +19,7 @@ namespace SportsStore
         {
             Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json").Build();
         }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -32,7 +31,7 @@ namespace SportsStore
                     Configuration["Data:SportStoreIdentity:ConnectionString"]));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppIdentityDbContext>();
+                .AddEntityFrameworkStores<AppIdentityDbContext>();//.AddDefaultTokenProviders();
 
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
@@ -50,7 +49,7 @@ namespace SportsStore
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            app.UseIdentity();
+            app.UseAuthentication();//UseIdentity(); - obsolete
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -87,7 +86,7 @@ namespace SportsStore
                 //    template: "{controller=Product}/{action=List}/{id?}");
             });
             SeedData.EnsurePopulated(serviceProvider);
-
+            IdentitySeedData.EnsurePopulated(serviceProvider);
         }
     }
 }

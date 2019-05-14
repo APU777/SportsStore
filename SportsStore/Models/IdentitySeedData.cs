@@ -2,24 +2,27 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace SportsStore.Models
 {
-    public class IdentitySeedData
+    public static class IdentitySeedData
     {
         private const string adminUser = "Admin";
         private const string adminPassword = "Secret123$";
 
-        public static async void EnsurePopulated(IApplicationBuilder app)
+        public static async void EnsurePopulated(/*IApplicationBuilder app*/IServiceProvider applicationBuilder)
         {
-            UserManager<IdentityUser> userManager = app.ApplicationServices
-                .GetRequiredService<UserManager<IdentityUser>>();
-
-            IdentityUser user = await userManager.FindByIdAsync(adminUser);
-            if(user == null)
+            using (IServiceScope scope = applicationBuilder.CreateScope())
             {
-                user = new IdentityUser("Admin");
-                await userManager.CreateAsync(user, adminPassword);
+                UserManager<IdentityUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                IdentityUser user = await userManager.FindByIdAsync(adminUser);
+
+                if (user == null)
+                {
+                    user = new IdentityUser("Admin");
+                    await userManager.CreateAsync(user, adminPassword);
+                }
             }
         }
     }
