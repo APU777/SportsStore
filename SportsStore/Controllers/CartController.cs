@@ -15,7 +15,6 @@ namespace SportsStore.Controllers
         {
             repository = repo;
             cart = cartService;
-            ViewBag.CheckCart = false;
         }
 
         public ViewResult Index(string returnUrl)
