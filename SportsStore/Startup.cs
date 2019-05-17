@@ -45,13 +45,26 @@ namespace SportsStore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
+            
             app.UseStaticFiles();
             app.UseSession();
             app.UseAuthentication();//UseIdentity(); - obsolete
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "Error",
+                    template: "Error",
+                    defaults: new {Controller = "Error", Action = "Error"}
+                    );
                 routes.MapRoute(
                         name: null,
                         template: "{category}/Page/{page:int}/",
